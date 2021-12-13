@@ -1,11 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
-const getData = (parser) => {
-    const pathname = path.resolve(__dirname)
-    return parser(fs.readFileSync(`${pathname}/data.txt`).toString());
-}
-
 const parseData = (str) => str.split('\n').map(r => r.split('').map(Number));
 
 const getMinimumsArray = arr => {
@@ -74,8 +66,8 @@ const countGreaterNeighbors = ({row, col}, arr, registered) => {
     return count;
 }
 
-(() => {
-    const arr = getData(parseData);
+module.exports = (rawData) => {
+    const arr = parseData(rawData);
     const minimums = getMinimumsArray(arr);
     const total = calcTotal(minimums);
     console.log('1.', total)
@@ -86,5 +78,5 @@ const countGreaterNeighbors = ({row, col}, arr, registered) => {
     const threeLargest = uniqueBasins.slice(0,3)
     const res = basins.filter(b => threeLargest.includes(b)).reduce((total, value) => total * value, 1)
     console.log('2.', res)
-})();
+}
 

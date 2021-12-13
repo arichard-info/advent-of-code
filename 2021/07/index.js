@@ -1,11 +1,3 @@
-const path = require("path");
-const fs = require("fs");
-
-const getData = (parser) => {
-    const pathname = path.resolve(__dirname)
-    return parser(fs.readFileSync(`${pathname}/data.txt`).toString());
-}
-
 const parseData = (str) => str.split(',').map(Number);
 
 const getOptimized = (data) => {
@@ -42,11 +34,11 @@ const getSum = (length) => {
     return sum;
 }
 
-(() => {
-    const data = getData(parseData);
+module.exports = (rawData) => {
+    const data = parseData(rawData);
     const res = getOptimized(data);
     const res2 = getOptimizedExp(data);
 
     console.log('1.', res);
     console.log('2.', res2);
-})()
+}

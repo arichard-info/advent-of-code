@@ -1,6 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
 const closingTags = {
     ')': { open: '(', penality: 3, value: 1 },
     ']': { open: '[', penality: 57, value: 2 },
@@ -13,11 +10,6 @@ const openingTags = {
     '[': 2,
     '{': 3,
     '<': 4
-}
-
-const getData = (parser) => {
-    const pathname = path.resolve(__dirname)
-    return parser(fs.readFileSync(`${pathname}/data.txt`).toString());
 }
 
 const parseData = (data) => data.split('\n');
@@ -38,8 +30,8 @@ const calcScore = (row) => {
 
 const calcTotal = (tags) => tags.reverse().reduce((score, tag) => (score * 5) + openingTags[tag], 0);
 
-(() => {
-    const arr = getData(parseData);
+module.exports = (rawData) => {
+    const arr = parseData(rawData);
     const scores = arr.map(calcScore);
     const penality = scores.reduce((total, s) => {
         if (s < 0) return -s + total;
@@ -51,4 +43,4 @@ const calcTotal = (tags) => tags.reverse().reduce((score, tag) => (score * 5) + 
     const index = Math.floor(completionScores.length / 2)
     const completionScore = completionScores[index]
     console.log('2.', completionScore);
-})();
+}

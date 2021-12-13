@@ -1,11 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
-const getData = (parser) => {
-    const pathname = path.resolve(__dirname)
-    return parser(fs.readFileSync(`${pathname}/data.txt`).toString());
-}
-
 const parseData = (str) => {
     [rawCoordinates, rawInstructions] = str.split('\n\n');
     const instructions = rawInstructions.split('\n').map(instruction => {
@@ -42,8 +34,8 @@ const drawCoordinates = (coordinates) => {
     return arr.map(row => row.join('')).join('\n');
 }
 
-(() => {
-    const data = getData(parseData);
+module.exports = (rawData) => {
+    const data = parseData(rawData);
     let coordinates = data.coordinates;
 
     data.instructions.forEach((instruction, index) => {
@@ -57,4 +49,4 @@ const drawCoordinates = (coordinates) => {
     const draw = drawCoordinates(coordinates);
     console.log('2.');
     console.log(draw);
-})();
+};

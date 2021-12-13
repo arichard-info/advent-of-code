@@ -1,11 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
-const getData = (parser) => {
-    const pathname = path.resolve(__dirname)
-    return parser(fs.readFileSync(`${pathname}/data.txt`).toString());
-}
-
 const parseData = (str) => {
     return str.split('\n').map(row => {
         const digits = row.split(' | ')[0].split(' ').map(str => str.split('').sort().join(''));
@@ -67,8 +59,8 @@ const decodeRecords = (records, mapping) => {
     return records.reduce((str, record) => `${str}${revertMapping[record]}`, '')
 }
 
-(() => {
-    const rows = getData(parseData);
+module.exports = (rawData) => {
+    const rows = parseData(rawData);
     const count = countDigits(rows);
 
     console.log('1.', count);
@@ -77,4 +69,4 @@ const decodeRecords = (records, mapping) => {
     const total = decodedRows.reduce((count, value) => count + Number(value), 0)
 
     console.log('2.', total)
-})();
+}
