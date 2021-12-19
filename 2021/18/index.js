@@ -76,7 +76,6 @@ const explodeNumber = (number) => {
                         if(Array.isArray(number[i1][i2][i3])){
                             const pairIndex = number[i1][i2][i3].findIndex(Array.isArray);
                             if(pairIndex!==-1) {
-                                exploded = true;
                                 const pairToExplode = number[i1][i2][i3][pairIndex]
 
                                 if(pairIndex === 0) {
@@ -87,8 +86,6 @@ const explodeNumber = (number) => {
                                         if(Array.isArray(number[i1][i2][0])) number[i1][i2][0][1] += pairToExplode[0];
                                         else number[i1][i2][0] += pairToExplode[0];
                                         return number
-
-                                        
                                     }
                                     if(i2===1) {
                                         if(Array.isArray(number[i1][0])){
@@ -176,8 +173,6 @@ module.exports = (rawData) => {
     const magnitude = calcMagniture(finalSum);
     console.log('1.', magnitude);
 
-    
-    const data2 = parseData(rawData);
-    const greatestMagniture = findGreatestMagnitude(data2);
+    const greatestMagniture = findGreatestMagnitude(data);
     console.log('2.', greatestMagniture);
 }
