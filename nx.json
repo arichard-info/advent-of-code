@@ -1,0 +1,8 @@
+{
+    "extends": "nx/presets/npm.json",
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "npmScope": "advent-of-code",
+    "affected": {
+        "defaultBase": "master"
+    }
+}

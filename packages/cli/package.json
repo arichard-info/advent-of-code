@@ -1,0 +1,9 @@
+{
+    "name": "cli",
+    "version": "1.0.0",
+    "main": "./cli/index.js",
+    "scripts": {
+        "build": "npm run clean && tsc -p .",
+        "clean": "rimraf bin/*"
+    }
+}
