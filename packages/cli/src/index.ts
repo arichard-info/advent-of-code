@@ -8,7 +8,7 @@ const normalizePath = require('normalize-path');
 const displayBanner = require('./banner');
 const inquirer = require('./inquirer');
 const solver = require('./solver');
-const { getDirectoriesNames, YEAR_PATTERN, DAY_PATTERN } = require('./filesystem');
+const { getDirectoriesNames, requireSolver, YEAR_PATTERN, DAY_PATTERN } = require('./filesystem');
 
 const rootDirectory = path.resolve(__dirname + "/../../../");
 const workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
@@ -22,7 +22,7 @@ const workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
     const days = getDirectoriesNames(`${workspaceDirectory}/${year}/${DAY_PATTERN}`);
     const day = await inquirer.getDay(days);
 
-    const solverFn = require(`${workspaceDirectory}/${year}/${day}/index.js`);
+    const solverFn = await requireSolver(`${workspaceDirectory}/${year}/${day}`);
 
     let action;
 
