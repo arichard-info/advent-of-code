@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var glob = require('glob');
+var importFresh = require('import-fresh');
 var getDirectoriesNames = function (pattern) {
     var directories = glob.sync(pattern);
     return directories.map(function (dirname) { return dirname.split("/").at(-1); }).sort(function (a, b) { return (+b - +a); });
@@ -46,13 +47,13 @@ var requireSolver = function (absolutePath) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 4]);
-                return [4 /*yield*/, require("".concat(absolutePath, "/index.ts"))];
+                return [4 /*yield*/, importFresh("".concat(absolutePath, "/index.ts"))];
             case 1:
                 module = _a.sent();
                 return [3 /*break*/, 4];
             case 2:
                 err_1 = _a.sent();
-                return [4 /*yield*/, require("".concat(absolutePath, "/index.js"))];
+                return [4 /*yield*/, importFresh("".concat(absolutePath, "/index.js"))];
             case 3:
                 module = _a.sent();
                 return [3 /*break*/, 4];

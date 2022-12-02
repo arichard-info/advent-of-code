@@ -22,13 +22,12 @@ const workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
     const days = getDirectoriesNames(`${workspaceDirectory}/${year}/${DAY_PATTERN}`);
     const day = await inquirer.getDay(days);
 
-    const solverFn = await requireSolver(`${workspaceDirectory}/${year}/${day}`);
-
     let action;
 
     while(true) {
         let shouldExit = false;
         action = await inquirer.getAction(action);
+        const solverFn = await requireSolver(`${workspaceDirectory}/${year}/${day}`);
         clear();
         switch(action) {
             case inquirer.Action.EXIT: {

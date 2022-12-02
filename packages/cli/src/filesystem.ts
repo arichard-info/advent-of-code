@@ -1,4 +1,5 @@
 const glob = require('glob');
+const importFresh = require('import-fresh');
 
 const getDirectoriesNames = (pattern: string): string[] => {
     const directories = glob.sync(pattern);
@@ -8,9 +9,9 @@ const getDirectoriesNames = (pattern: string): string[] => {
 const requireSolver = async (absolutePath: string) => {
     let module;
     try {
-        module = await require(`${absolutePath}/index.ts`);
+        module = await importFresh(`${absolutePath}/index.ts`);
     } catch(err) {
-        module = await require(`${absolutePath}/index.js`);
+        module = await importFresh(`${absolutePath}/index.js`);
     }
     return module;
 }

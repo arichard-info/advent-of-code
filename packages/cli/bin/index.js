@@ -48,7 +48,7 @@ var _a = require('./filesystem'), getDirectoriesNames = _a.getDirectoriesNames, 
 var rootDirectory = path.resolve(__dirname + "/../../../");
 var workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var years, year, days, day, solverFn, action, shouldExit, hrstart, hrend;
+    var years, year, days, day, action, shouldExit, solverFn, hrstart, hrend;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, displayBanner()];
@@ -62,16 +62,16 @@ var workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
                 return [4 /*yield*/, inquirer.getDay(days)];
             case 3:
                 day = _a.sent();
-                return [4 /*yield*/, requireSolver("".concat(workspaceDirectory, "/").concat(year, "/").concat(day))];
+                _a.label = 4;
             case 4:
-                solverFn = _a.sent();
-                _a.label = 5;
-            case 5:
                 if (!true) return [3 /*break*/, 7];
                 shouldExit = false;
                 return [4 /*yield*/, inquirer.getAction(action)];
-            case 6:
+            case 5:
                 action = _a.sent();
+                return [4 /*yield*/, requireSolver("".concat(workspaceDirectory, "/").concat(year, "/").concat(day))];
+            case 6:
+                solverFn = _a.sent();
                 clear();
                 switch (action) {
                     case inquirer.Action.EXIT: {
@@ -90,7 +90,7 @@ var workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
                 }
                 if (shouldExit)
                     return [3 /*break*/, 7];
-                return [3 /*break*/, 5];
+                return [3 /*break*/, 4];
             case 7: return [2 /*return*/];
         }
     });
