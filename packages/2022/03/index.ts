@@ -1,4 +1,5 @@
 const { EOL } = require('os');
+const { groupByN } = require('commons/lib/index.ts');
 
 const alphabet: string = "abcdefghijklmnopqrstuvwxyz";
 
@@ -24,12 +25,6 @@ const getCharactersScore = (characters: string[]): number => {
         return value + score;
     }, 0)
 }
-
-const groupByN = (n: number, arr: any[]): any[][] => {
-    const result = [];
-    for (let i = 0; i < arr.length; i += n) result.push(arr.slice(i, i + n));
-    return result;
-};
 
 const findBadges = ([elf1, elf2, elf3]: [string, string, string]): string[] => {
     const duplicates = new Set<string>();
