@@ -35,11 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var glob = require('glob');
 var importFresh = require('import-fresh');
+var fs = require('fs');
 var getDirectoriesNames = function (pattern) {
     var directories = glob.sync(pattern);
-    return directories.map(function (dirname) { return dirname.split("/").at(-1); }).sort(function (a, b) { return (+b - +a); });
+    return directories
+        .map(function (dirname) { return dirname.split('/').at(-1); })
+        .sort(function (a, b) { return +b - +a; });
 };
 var requireSolver = function (absolutePath) { return __awaiter(void 0, void 0, void 0, function () {
     var module, err_1;
@@ -61,9 +65,39 @@ var requireSolver = function (absolutePath) { return __awaiter(void 0, void 0, v
         }
     });
 }); };
+var scaffoldDay = function (directory, year, day, ts) {
+    if (ts === void 0) { ts = true; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var dayDirectory, extension, template;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    dayDirectory = "".concat(directory, "/").concat(year, "/").concat(day);
+                    return [4 /*yield*/, fs.promises.mkdir(dayDirectory)];
+                case 1:
+                    _a.sent();
+                    extension = ts ? 'ts' : 'js';
+                    return [4 /*yield*/, fs.promises.readFile("".concat(directory, "/cli/src/templates/day.").concat(extension))];
+                case 2:
+                    template = _a.sent();
+                    return [4 /*yield*/, fs.promises.writeFile("".concat(dayDirectory, "/index.").concat(extension), template)];
+                case 3:
+                    _a.sent();
+                    return [4 /*yield*/, fs.promises.writeFile("".concat(dayDirectory, "/data.txt"), '')];
+                case 4:
+                    _a.sent();
+                    return [4 /*yield*/, fs.promises.writeFile("".concat(dayDirectory, "/example.txt"), '')];
+                case 5:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+};
 module.exports = {
     getDirectoriesNames: getDirectoriesNames,
     requireSolver: requireSolver,
-    YEAR_PATTERN: "[0-9][0-9][0-9][0-9]",
-    DAY_PATTERN: "[0-9][0-9]"
+    scaffoldDay: scaffoldDay,
+    YEAR_PATTERN: '[0-9][0-9][0-9][0-9]',
+    DAY_PATTERN: '[0-9][0-9]',
 };

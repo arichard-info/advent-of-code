@@ -41,8 +41,9 @@ var getYear = function (years) { return __awaiter(void 0, void 0, void 0, functi
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirer.prompt({
-                    name: "Year",
-                    type: "list", choices: years
+                    name: 'Year',
+                    type: 'list',
+                    choices: years,
                 })];
             case 1:
                 yearChoice = _a.sent();
@@ -50,13 +51,20 @@ var getYear = function (years) { return __awaiter(void 0, void 0, void 0, functi
         }
     });
 }); };
-var getDay = function (days) { return __awaiter(void 0, void 0, void 0, function () {
+var getDay = function (existingDays) { return __awaiter(void 0, void 0, void 0, function () {
     var yearChoice;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirer.prompt({
-                    name: "Day",
-                    type: "list", choices: days
+                    name: 'Day',
+                    type: 'list',
+                    choices: Array.from(Array(25).keys()).map(function (i) {
+                        var day = (i + 1).toString().padStart(2, '0');
+                        var name = day;
+                        if (existingDays.indexOf(day) === -1)
+                            name = day + ' (create)';
+                        return { name: name, value: day };
+                    }),
                 })];
             case 1:
                 yearChoice = _a.sent();
@@ -69,6 +77,7 @@ var Action;
     Action["EXAMPLE"] = "example";
     Action["DATA"] = "data";
     Action["EXIT"] = "exit";
+    Action["BACK"] = "back";
 })(Action || (Action = {}));
 var getAction = function (defaultAction) {
     if (defaultAction === void 0) { defaultAction = Action.EXAMPLE; }
@@ -77,14 +86,16 @@ var getAction = function (defaultAction) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, inquirer.prompt({
-                        name: "action",
-                        message: "Action",
+                        name: 'action',
+                        message: 'Action',
                         default: defaultAction,
-                        type: "list", choices: [
-                            { name: "Run with example data", value: Action.EXAMPLE },
-                            { name: "Run with real data", value: Action.DATA },
-                            { name: "Exit", value: Action.EXIT }
-                        ]
+                        type: 'list',
+                        choices: [
+                            { name: 'Run with example data', value: Action.EXAMPLE },
+                            { name: 'Run with real data', value: Action.DATA },
+                            { name: '⬅️  Go back', value: Action.BACK },
+                            { name: '🚪 Exit', value: Action.EXIT },
+                        ],
                     })];
                 case 1:
                     actionChoice = _a.sent();
@@ -97,5 +108,5 @@ module.exports = {
     getYear: getYear,
     getDay: getDay,
     getAction: getAction,
-    Action: Action
+    Action: Action,
 };

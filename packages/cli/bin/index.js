@@ -44,38 +44,53 @@ var normalizePath = require('normalize-path');
 var displayBanner = require('./banner');
 var inquirer = require('./inquirer');
 var solver = require('./solver');
-var _a = require('./filesystem'), getDirectoriesNames = _a.getDirectoriesNames, requireSolver = _a.requireSolver, YEAR_PATTERN = _a.YEAR_PATTERN, DAY_PATTERN = _a.DAY_PATTERN;
-var rootDirectory = path.resolve(__dirname + "/../../../");
-var workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
+var _a = require('./filesystem'), getDirectoriesNames = _a.getDirectoriesNames, requireSolver = _a.requireSolver, scaffoldDay = _a.scaffoldDay, YEAR_PATTERN = _a.YEAR_PATTERN, DAY_PATTERN = _a.DAY_PATTERN;
+var rootDirectory = path.resolve(__dirname + '/../../../');
+var workspaceDirectory = normalizePath(path.join(rootDirectory, 'packages'));
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var years, year, days, day, action, shouldExit, solverFn, hrstart, hrend;
+    var shouldExit, years, year, days, day, action, shouldGoBack, solverFn, hrstart, hrend;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, displayBanner()];
             case 1:
                 _a.sent();
+                shouldExit = false;
+                _a.label = 2;
+            case 2:
+                if (!true) return [3 /*break*/, 11];
                 years = getDirectoriesNames("".concat(workspaceDirectory, "/").concat(YEAR_PATTERN));
                 return [4 /*yield*/, inquirer.getYear(years)];
-            case 2:
+            case 3:
                 year = _a.sent();
                 days = getDirectoriesNames("".concat(workspaceDirectory, "/").concat(year, "/").concat(DAY_PATTERN));
                 return [4 /*yield*/, inquirer.getDay(days)];
-            case 3:
-                day = _a.sent();
-                _a.label = 4;
             case 4:
-                if (!true) return [3 /*break*/, 7];
-                shouldExit = false;
-                return [4 /*yield*/, inquirer.getAction(action)];
+                day = _a.sent();
+                if (!(days.indexOf(day) === -1)) return [3 /*break*/, 6];
+                return [4 /*yield*/, scaffoldDay(workspaceDirectory, year, day, true)];
             case 5:
+                _a.sent();
+                _a.label = 6;
+            case 6:
+                action = void 0;
+                _a.label = 7;
+            case 7:
+                if (!true) return [3 /*break*/, 10];
+                shouldGoBack = false;
+                return [4 /*yield*/, inquirer.getAction(action)];
+            case 8:
                 action = _a.sent();
                 return [4 /*yield*/, requireSolver("".concat(workspaceDirectory, "/").concat(year, "/").concat(day))];
-            case 6:
+            case 9:
                 solverFn = _a.sent();
                 clear();
                 switch (action) {
                     case inquirer.Action.EXIT: {
                         shouldExit = true;
+                        break;
+                    }
+                    case inquirer.Action.BACK: {
+                        shouldGoBack = true;
                         break;
                     }
                     case inquirer.Action.EXAMPLE:
@@ -86,12 +101,17 @@ var workspaceDirectory = normalizePath(path.join(rootDirectory, "packages"));
                         console.info('🕒 Execution time : %ds %dms', hrend[0], hrend[1] / 1000000, EOL);
                         break;
                     }
-                    default: break;
+                    default:
+                        break;
                 }
+                if (shouldExit || shouldGoBack)
+                    return [3 /*break*/, 10];
+                return [3 /*break*/, 7];
+            case 10:
                 if (shouldExit)
-                    return [3 /*break*/, 7];
-                return [3 /*break*/, 4];
-            case 7: return [2 /*return*/];
+                    return [3 /*break*/, 11];
+                return [3 /*break*/, 2];
+            case 11: return [2 /*return*/];
         }
     });
 }); })();
