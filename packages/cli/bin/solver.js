@@ -1,5 +1,5 @@
 "use strict";
-var fs = require("fs");
+var fs = require('fs');
 module.exports = function (dayDirectory, action, solverFn) {
     var rawData;
     try {
@@ -12,6 +12,6 @@ module.exports = function (dayDirectory, action, solverFn) {
         solverFn(rawData);
     }
     catch (err) {
-        console.error("Unexpected error while trying to run the script");
+        console.error("Unexpected error while trying to run the script", err);
     }
 };
