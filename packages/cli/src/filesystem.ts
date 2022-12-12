@@ -14,7 +14,15 @@ const requireSolver = async (absolutePath: string) => {
     try {
         module = await importFresh(`${absolutePath}/index.ts`);
     } catch (err) {
-        module = await importFresh(`${absolutePath}/index.js`);
+        console.log("Can't load .ts file, error : ", err);
+    }
+
+    if (!module) {
+        try {
+            module = await importFresh(`${absolutePath}/index.js`);
+        } catch (err) {
+            console.log("Can't load .js file, error : ", err);
+        }
     }
     return module;
 };

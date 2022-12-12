@@ -46,22 +46,33 @@ var getDirectoriesNames = function (pattern) {
         .sort(function (a, b) { return +b - +a; });
 };
 var requireSolver = function (absolutePath) { return __awaiter(void 0, void 0, void 0, function () {
-    var module, err_1;
+    var module, err_1, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 4]);
+                _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, importFresh("".concat(absolutePath, "/index.ts"))];
             case 1:
                 module = _a.sent();
-                return [3 /*break*/, 4];
+                return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
-                return [4 /*yield*/, importFresh("".concat(absolutePath, "/index.js"))];
+                console.log("Can't load .ts file, error : ", err_1);
+                return [3 /*break*/, 3];
             case 3:
+                if (!!module) return [3 /*break*/, 7];
+                _a.label = 4;
+            case 4:
+                _a.trys.push([4, 6, , 7]);
+                return [4 /*yield*/, importFresh("".concat(absolutePath, "/index.js"))];
+            case 5:
                 module = _a.sent();
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/, module];
+                return [3 /*break*/, 7];
+            case 6:
+                err_2 = _a.sent();
+                console.log("Can't load .js file, error : ", err_2);
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/, module];
         }
     });
 }); };
