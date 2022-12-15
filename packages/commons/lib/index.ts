@@ -8,5 +8,5 @@ const groupByN = (n: number, arr: any[]): any[][] => {
 
 module.exports = {
     ...utils,
-    groupByN
-}
+    groupByN,
+};
