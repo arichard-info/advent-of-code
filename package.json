@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node packages/cli/bin/index.js",
+    "start-node": "node packages/cli/bin/index.js",
     "build-cli": "nx run cli:build"
   },
   "repository": {
