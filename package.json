@@ -20,6 +20,7 @@
   "homepage": "https://github.com/arichard-info/advent-of-code#readme",
   "dependencies": {
     "@types/node": "^18.11.10",
+    "canvas": "^2.11.2",
     "clear": "^0.1.0",
     "figlet": "^1.5.2",
     "glob": "^8.0.3",
